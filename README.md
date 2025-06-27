@@ -1,2 +1,1 @@
-# portfolio
-Personal Portfolio for Zack Paton
+# Zack Paton's Personal Portfolio
