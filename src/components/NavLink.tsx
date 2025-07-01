@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { ReactNode, MouseEventHandler } from 'react'
+import { ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 
 type NavLinkProps = {
