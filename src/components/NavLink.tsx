@@ -16,7 +16,7 @@ const NavLink = ({ href, children, className = '' }: NavLinkProps) => {
   return (
     <Link
       href={href}
-      className={`group inline-flex items-center px-2 py-1 rounded bg-background text-foreground transition
+      className={`group inline-flex items-center px-2 py-1 rounded bg-background text-foreground
         ${isActive && className === '' ? 'ring-3 ring-foreground' : ''} ${className}`}
     >
       <span className="transition-transform duration-200 group-hover:scale-105">{children}</span>

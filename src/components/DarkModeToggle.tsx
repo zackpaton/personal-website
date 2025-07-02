@@ -11,6 +11,12 @@ const DarkModeToggle = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsDark(document.documentElement.classList.contains('dark'))
+      if (isDark) {
+        const favicon = document.getElementById('favicon')
+        if (favicon instanceof HTMLLinkElement) {
+          favicon.href = '/favicon-dark.ico'
+        }
+      }
     }
   }, [])
 
@@ -32,16 +38,23 @@ const DarkModeToggle = () => {
       document.documentElement.classList.remove('dark')
       localStorage.setItem('theme', 'light')
       setIsDark(false)
+      const favicon = document.getElementById('favicon')
+      if (favicon instanceof HTMLLinkElement) {
+        favicon.href = '/favicon-light.ico'
+      }
     } else {
       document.documentElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
       setIsDark(true)
+      const favicon = document.getElementById('favicon')
+      if (favicon instanceof HTMLLinkElement) {
+        favicon.href = '/favicon-dark.ico'
+      }
     }
   }
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* Settings Button */}
       <button
         onClick={() => setOpen(!open)}
         className={`group cursor-pointer bg-background text-foreground p-2 rounded-full transition-transform duration-300 ease-in-out ${open ? 'rotate-90' : 'rotate-0'
@@ -53,7 +66,7 @@ const DarkModeToggle = () => {
 
       {open && (
         <div
-          className="absolute z-50 top-full right-0 mt-4 w-28 bg-background border border-foreground/20 rounded shadow-lg p-3 space-y-3"
+          className="absolute z-50 top-full right-0 mt-4 w-28 bg-background border border-foreground/20 rounded shadow-xs shadow-foreground-second p-3 space-y-3"
           ref={toggleModeRef}
         >
           <div className="flex items-center justify-between">

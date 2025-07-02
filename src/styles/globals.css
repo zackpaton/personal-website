@@ -1,27 +1,55 @@
 @import "tailwindcss";
 
-
 :root {
-  --background: #f9f9f9;
-  --foreground: #111111;
-  --primary: #007aff;
+  --background-h: 0;
+  --background-s: 0%;
+  --background-l: 98%;
+
+  --background-second-h: 0;
+  --background-second-s: 0%;
+  --background-second-l: 94%;
+
+  --foreground-h: 0;
+  --foreground-s: 0%;
+  --foreground-l: 7%;
+
+  --foreground-second-h: 0;
+  --foreground-second-s: 0%;
+  --foreground-second-l: 11%;
+
+  --primary-h: 210;
+  --primary-s: 100%;
+  --primary-l: 50%;
 
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'Geist Mono', monospace;
+
+  --background: hsl(var(--background-h), var(--background-s), var(--background-l));
+  --background-second: hsl(var(--background-second-h), var(--background-second-s), var(--background-second-l));
+  --foreground: hsl(var(--foreground-h), var(--foreground-s), var(--foreground-l));
+  --foreground-second: hsl(var(--foreground-second-h), var(--foreground-second-s), var(--foreground-second-l));
+  --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-second: var(--background-second);
   --color-foreground: var(--foreground);
+  --color-foreground-second: var(--foreground-second);
   --color-primary: var(--primary);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #ffd966;
+  --background-l: 4%;
+  --background-second-l: 16%;
+  --foreground-l: 93%;
+  --foreground-second-l: 81%;
+
+  --primary-h: 42;
+  --primary-s: 100%;
+  --primary-l: 70%;
 }
 
 body {
