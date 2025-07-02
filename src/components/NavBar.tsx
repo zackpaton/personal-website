@@ -60,7 +60,8 @@ const NavBar = () => {
         <div className="hidden sm:flex items-center space-x-4">
           <NavLink href="/">Home</NavLink>
           <NavLink href="/resume">Resume</NavLink>
-          <NavLink href="/projects">Projects</NavLink>
+          <NavLink href="/projects">Portfolio</NavLink>
+          <NavLink href="/contact">Contact</NavLink>
         </div>
 
         <DarkModeToggle />
@@ -68,7 +69,7 @@ const NavBar = () => {
 
       {menuOpen && (
         <div
-          className="absolute z-50 top-full left-0 bg-background text-foreground border border-foreground/10 rounded shadow-lg mt-1"
+          className="absolute z-50 top-full left-0 bg-background text-foreground border border-foreground/10 rounded shadow-xs shadow-foreground-second mt-1"
           ref={hiddenMenuRef}
           style={{
             left: `${menuPosition.left}px`,
@@ -78,7 +79,8 @@ const NavBar = () => {
           <div className="flex flex-col space-y-2 px-4 py-2">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/resume">Resume</NavLink>
-            <NavLink href="/projects">Projects</NavLink>
+            <NavLink href="/projects">Portfolio</NavLink>
+            <NavLink href="/contact">Contact</NavLink>
           </div>
         </div>
       )}
