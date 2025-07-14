@@ -17,6 +17,9 @@ const config: Config = {
         sans: ['var(--font-sans)'],
         mono: ['var(--font-mono)'],
       },
+      screens: {
+        'edu': '670px', 
+      },
     },
   },
   plugins: [],
