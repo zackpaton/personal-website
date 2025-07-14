@@ -9,7 +9,6 @@ type ResumeCardData = {
   topRight: string
   bottomLeft: string
   bottomRight: string
-  type: string
   bullets: string[]
   imageSrc?: string
 }
@@ -39,20 +38,6 @@ export default function ResumeCarousel({ items }: ResumeCarouselProps) {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX)
-  }
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX === null) return
-    const touchEndX = e.changedTouches[0].clientX
-    const diff = touchStartX - touchEndX
-    if (diff > 50) nextCard()
-    if (diff < -50) prevCard()
-    setTouchStartX(null)
-  }
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (e.deltaX > 20) nextCard()
-    if (e.deltaX < -20) prevCard()
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {

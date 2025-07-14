@@ -18,7 +18,7 @@ const DarkModeToggle = () => {
         }
       }
     }
-  }, [])
+  }, [ isDark ])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
