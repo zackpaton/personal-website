@@ -9,7 +9,6 @@ type ResumeCardProps = {
   topRight: string
   bottomLeft: string
   bottomRight: string
-  type: string
   bullets: string[]
   imageSrc?: string
 }
@@ -19,7 +18,6 @@ export default function ResumeCard({
   topRight,
   bottomLeft,
   bottomRight,
-  type,
   bullets,
   imageSrc,
 }: ResumeCardProps) {
