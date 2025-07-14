@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.7",
+    "fast-average-color": "^9.5.0",
+    "framer-motion": "^12.23.0",
     "lucide-react": "^0.525.0",
     "next": "15.3.4",
     "react": "^19.0.0",
@@ -28,5 +30,9 @@
     "postcss-load-config": "^6.0.1",
     "tailwindcss": "^4.1.11",
     "typescript": "^5"
-  }
+  },
+  "description": "",
+  "main": "postcss.config.js",
+  "author": "",
+  "license": "ISC"
 }
