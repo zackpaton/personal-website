@@ -10,30 +10,45 @@ type ResumeCardData = {
   bottomLeft: string
   bottomRight: string
   bullets: string[]
-  imageSrc?: string
+  imageSrc: string
+  imageShadow: string
 }
 
 type ResumeCarouselProps = {
   items: ResumeCardData[]
 }
 
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0
+  }),
+  center: {
+    x: 0,
+    opacity: 1
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -300 : 300,
+    opacity: 0
+  })
+}
+
 export default function ResumeCarousel({ items }: ResumeCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [state, setState] = useState({ index: 0, direction: 0 })
   const [touchStartX, setTouchStartX] = useState<number | null>(null)
-  const [direction, setDirection] = useState(0)
 
   const prevCard = () => {
-    if (currentIndex > 0) {
-      setDirection(-1)
-      setCurrentIndex(currentIndex - 1)
-    }
+    setState((prev) => ({
+      index: Math.max(prev.index - 1, 0),
+      direction: -1
+    }))
   }
 
   const nextCard = () => {
-    if (currentIndex < items.length - 1) {
-      setDirection(1)
-      setCurrentIndex(currentIndex + 1)
-    }
+    setState((prev) => ({
+      index: Math.min(prev.index + 1, items.length - 1),
+      direction: 1
+    }))
   }
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -45,37 +60,37 @@ export default function ResumeCarousel({ items }: ResumeCarouselProps) {
     const touchCurrentX = e.touches[0].clientX
     const diff = touchStartX - touchCurrentX
     if (diff > 50) {
-        nextCard()
-        setTouchStartX(null)
+      nextCard()
+      setTouchStartX(null)
+      return
     }
     if (diff < -50) {
-        prevCard()
-        setTouchStartX(null)
+      prevCard()
+      setTouchStartX(null)
+      return
     }
   }
 
   const containerRef = useRef<HTMLDivElement>(null)
 
-    useEffect(() => {
+  useEffect(() => {
     const container = containerRef.current
     if (!container) return
 
     const handleWheelNative = (e: WheelEvent) => {
-        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
         e.preventDefault()
         if (e.deltaX > 20) nextCard()
         if (e.deltaX < -20) prevCard()
-        }
+      }
     }
 
     container.addEventListener('wheel', handleWheelNative, { passive: false })
 
     return () => {
-        container.removeEventListener('wheel', handleWheelNative)
+      container.removeEventListener('wheel', handleWheelNative)
     }
-    }, [currentIndex])
-
-
+  }, [])
 
   return (
     <div className="flex flex-col items-center" ref={containerRef}>
@@ -83,33 +98,33 @@ export default function ResumeCarousel({ items }: ResumeCarouselProps) {
         {items.length > 1 && (
           <button
             onClick={prevCard}
-            disabled={currentIndex === 0}
-            className="disabled:opacity-30 text-foreground cursor-pointer disabled:cursor-default"
+            disabled={state.index === 0}
+            className="disabled:opacity-30 text-foreground cursor-pointer disabled:cursor-default hover:scale-105 disabled:hover:scale-100"
           >
             <ChevronLeft size={28} />
           </button>
         )}
 
         <motion.div
-        ref={containerRef}
-        layout
-        transition={{ layout: { duration: 0.3, ease: 'easeInOut' } }}
-        className="relative overflow-hidden"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={() => setTouchStartX(null)}
+          layout
+          transition={{ layout: { duration: 0.3, ease: 'easeInOut' } }}
+          className="relative overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={() => setTouchStartX(null)}
         >
-          <AnimatePresence initial={false} custom={direction} mode="wait">
+          <AnimatePresence initial={false} custom={state.direction} mode="wait">
             <motion.div
-              key={currentIndex}
-              custom={direction}
-              initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+              key={state.index}
+              custom={state.direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
               transition={{ duration: 0.2 }}
               className="w-full p-0 m-0"
             >
-              <ResumeCard {...items[currentIndex]} />
+              <ResumeCard {...items[state.index]} />
             </motion.div>
           </AnimatePresence>
         </motion.div>
@@ -117,8 +132,8 @@ export default function ResumeCarousel({ items }: ResumeCarouselProps) {
         {items.length > 1 && (
           <button
             onClick={nextCard}
-            disabled={currentIndex === items.length - 1}
-            className="disabled:opacity-30 text-foreground cursor-pointer disabled:cursor-default"
+            disabled={state.index === items.length - 1}
+            className="disabled:opacity-30 text-foreground cursor-pointer disabled:cursor-default hover:scale-105 disabled:hover:scale-100"
           >
             <ChevronRight size={28} />
           </button>
@@ -128,17 +143,19 @@ export default function ResumeCarousel({ items }: ResumeCarouselProps) {
       {items.length > 1 && (
         <div className="flex gap-0 sm:gap-2 mt-0 sm:mt-2 text-foreground">
           {items.map((_, i) =>
-            i === currentIndex ? (
+            i === state.index ? (
               <CircleDot key={i} size={18} />
             ) : (
               <Circle
                 key={i}
                 size={18}
-                className="cursor-pointer"
-                onClick={() => {
-                  setDirection(i > currentIndex ? 1 : -1)
-                  setCurrentIndex(i)
-                }}
+                className="cursor-pointer hover:scale-105"
+                onClick={() =>
+                  setState({
+                    index: i,
+                    direction: i > state.index ? 1 : -1
+                  })
+                }
               />
             )
           )}
