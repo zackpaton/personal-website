@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import NavLink from './NavLink'
 import DarkModeToggle from './DarkModeToggle'
 import { Menu } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -10,6 +11,7 @@ const NavBar = () => {
   const menuContainerRef = useRef<HTMLDivElement>(null)
   const hiddenMenuRef = useRef<HTMLDivElement>(null)
   const [menuPosition, setMenuPosition] = useState({ left: 0, right: 0 })
+  const pathname = usePathname()
 
   const handleToggleMenu = () => {
     if (!menuOpen && menuContainerRef.current) {
@@ -39,8 +41,12 @@ const NavBar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [menuOpen])
 
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [pathname])
+
   return (
-    <div className="bg-primary shadow relative">
+    <div className="bg-primary shadow relative h-[60px]">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
 
         <div ref={menuContainerRef} className="flex items-center space-x-4">
