@@ -90,7 +90,7 @@ export default function ResumeCarousel({ items }: ResumeCarouselProps) {
     return () => {
       container.removeEventListener('wheel', handleWheelNative)
     }
-  }, [])
+  })
 
   return (
     <div className="flex flex-col items-center" ref={containerRef}>

@@ -1,13 +1,10 @@
 'use client'
-import NavBar from '@/components/NavBar'
 import ResumeSection from '@/components/ResumeSection'
 import ResumeCarousel from '@/components/ResumeCarousel'
 
 export default function ResumePage() {
   return (
     <>
-      <NavBar />
-
       <main className="max-w-4xl mx-auto px-1 sm:px-4 py-4 sm:py-8 space-y-4 sm:space-y-8">
         <div className="flex sm:hidden text-xl font-bold justify-center items-center bg-background text-foreground rounded max-w-2/5 mx-auto ring-3 ring-foreground"> 
           Resume

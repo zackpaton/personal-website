@@ -1,15 +1,12 @@
-import NavBar from '@/components/NavBar'
 import Image from 'next/image'
 import headshot from '../../public/images/headshot.webp'
 
 export default function Home() {
   return (
     <>
-      <div className="min-h-screen bg-background-second">
-        <NavBar />
-
-        <div className="flex items-center justify-center mt-[2vh] lg:mt-[15vh]">
-          <div className="flex flex-col lg:flex-row items-center gap-[5vh] lg:gap-[5vw] p-[3vh]">
+      <div className="min-h-[calc(100vh-60px)] bg-background-second">
+        <div className="flex items-center justify-center">
+          <div className="flex flex-col lg:flex-row items-center gap-[5vh] lg:gap-[5vw] p-[3vh] mt-[2vh] lg:mt-[15vh]">
             <div className="text-center lg:text-left max-w-xs">
               <div className="text-sm md:text-base lg:text-lg font-small text-foreground">
                 <p>
